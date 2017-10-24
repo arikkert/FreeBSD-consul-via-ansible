@@ -1,0 +1,13 @@
+# consul server
+---
+- hosts: freebsd_consul_servers
+  tasks:
+  - template:
+      src: Files/CONSUL_server.json.tpl
+      dest: /usr/local/etc/consul.d/CONSUL_server.json
+    notify:
+      - restart consul
+
+  handlers:
+    - name: restart consul
+      service: name=consul state=restarted

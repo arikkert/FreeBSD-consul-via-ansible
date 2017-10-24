@@ -1,0 +1,9 @@
+# https://groups.google.com/forum/#!topic/ansible-project/fzQMSzhIQCY
+---
+- hosts: freebsd
+  tasks:
+    - name: install consul
+      pkgng: name=sysutils/consul state=present cached=yes
+    - file: state=directory path=/usr/local/etc/consul.d
+    - file: state=directory path=/var/consul/data-dir owner=consul group=consul
+    - service: name=consul state=started enabled=yes

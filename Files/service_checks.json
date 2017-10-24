@@ -1,0 +1,25 @@
+{
+	"service" :
+	{
+		"name" : "some checks",
+		"tag" : "mooie tag toch",
+		"_comment" : "1 service with 2 checks here",
+		"checks" :
+		[
+			{
+				"id" : "check-users",
+				"name" : "check-users",
+				"script" : "/usr/local/libexec/nagios/check_users -w 3 -c 5",
+				"notes" : "This check comes from nagios plugin",
+				"interval" : "1m"
+			},
+			{
+				"id" : "check-load",
+				"name" : "check-load",
+				"script" : "/usr/local/libexec/nagios/check_load -w 5.0,4.0,3.0 -c 10.0,6.0,4.0",
+				"notes" : "This check comes from nagios plugin",
+				"interval" : "1m"
+			}
+		]
+	}
+}
