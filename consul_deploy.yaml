@@ -1,0 +1,13 @@
+# The consul package
+---
+- hosts: freebsd
+  gather_facts: false
+  tasks:
+    - name: install sysutils/facter  # cfacter (variables used in templates)
+      pkgng: name=sysutils/facter state=present cached=yes
+    - name: install consul
+      pkgng: name=sysutils/consul state=present cached=yes
+    - name: create the config dir
+      file: state=directory path=/usr/local/etc/consul.d
+    - name: start and enable the service
+      service: name=consul state=started enabled=yes
