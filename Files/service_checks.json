@@ -2,8 +2,6 @@
 	"service" :
 	{
 		"name" : "some checks",
-		"tag" : "mooie tag toch",
-		"_comment" : "1 service with 2 checks here",
 		"checks" :
 		[
 			{

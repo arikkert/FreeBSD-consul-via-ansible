@@ -1,10 +1,9 @@
 {
 	"datacenter" : "zolder",
 	"server" : true,
-	"data_dir" : "/var/consul/data-dir",
 	"enable_script_checks" : true,
 	"log_level" : "DEBUG",
-	"bind_addr" : "{{ facter_ipaddress }}",
+	"bind_addr" : "{{ facter_networking.ip }}",
 	"bootstrap_expect" : 3,
-	"start_join" : ["consul.{{ facter_domain }}"]
+	"start_join" : ["consul.{{ facter_networking.domain }}"]
 }
