@@ -3,6 +3,7 @@ VERBOSE=
 DRYRUN=--check
 DRYRUN=
 OPTIONS=$(VERBOSE) $(DRYRUN)
+YAMLLINT=yamllint $@.yaml
 
 all: deploy
 deploy:   ansible consul_deploy   consul_servers_configure   consul_clients_configure   consul_service_checks_configure
@@ -10,7 +11,7 @@ deploy:   ansible consul_deploy   consul_servers_configure   consul_clients_conf
 undeploy: ansible consul_undeploy consul_servers_unconfigure consul_clients_unconfigure consul_service_checks_unconfigure
 
 ansible:
-	yamllint $@.yaml
+	$(YAMLLINT)
 	ansible-playbook $(OPTIONS) $@.yaml
 
 # check on valid json syntax (jq as a dependency)
@@ -24,41 +25,39 @@ check_json_server:
 check_json_service_checks:
 	jq empty Files/service_checks.json
 
-# Check on valid yaml syntax and install consul core.
-# yamllint as dependency
+# install consul core.
 consul_deploy:
-	yamllint $@.yaml
+	$(YAMLLINT)
 	ansible-playbook $(OPTIONS) $@.yaml
 
 consul_undeploy:
-	yamllint $@.yaml
-	ansible-playbook $(OPTIONS) $(DRYRUN) $@.yaml
-
-# Check on valid yaml syntax and install consul clients.
-# yamllint as dependency
-consul_clients_configure: check_json_client
-	yamllint $@.yaml
-	ansible-playbook $(OPTIONS) $(DRYRUN) $@.yaml
-
-consul_clients_unconfigure: check_json_client
-	yamllint $@.yaml
+	$(YAMLLINT)
 	ansible-playbook $(OPTIONS) $@.yaml
 
-# Check on valid yaml syntax and install consul server
+# install consul clients.
+consul_clients_configure: check_json_client
+	$(YAMLLINT)
+	ansible-playbook $(OPTIONS) $@.yaml
+
+consul_clients_unconfigure: check_json_client
+	$(YAMLLINT)
+	ansible-playbook $(OPTIONS) $@.yaml
+
+# install consul server
 consul_servers_configure: check_json_server
-	yamllint $@.yaml
+	$(YAMLLINT)
 	ansible-playbook $(OPTIONS) $@.yaml
 
 consul_servers_unconfigure: check_json_server
-	yamllint $@.yaml
+	$(YAMLLINT)
 	ansible-playbook $(OPTIONS) $@.yaml
 
 consul_service_checks_configure: check_json_service_checks
-	yamllint $@.yaml
+	$(YAMLLINT)
 	ansible-playbook $(OPTIONS) $@.yaml
 
 consul_service_checks_unconfigure: check_json_service_checks
-	yamllint $@.yaml
+	$(YAMLLINT)
 	ansible-playbook $(OPTIONS) $@.yaml
 
 # ==============================================
