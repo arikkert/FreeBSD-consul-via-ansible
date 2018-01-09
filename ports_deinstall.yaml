@@ -1,0 +1,9 @@
+# The py-yamllint package + deps
+---
+- hosts: ansible_host
+  gather_facts: false
+  tasks:
+    - name: deinstall textproc/py-yamllint
+      pkgng: name=textproc/py-yamllint state=absent cached=yes
+    - name: deinstall python/py-pathspec
+      pkgng: name=textproc/py-pathspec state=absent cached=yes
