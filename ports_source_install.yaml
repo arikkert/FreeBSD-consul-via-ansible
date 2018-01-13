@@ -1,3 +1,8 @@
+# https://bugs.freebsd.org/bugzilla/show_bug.cgi?id=225031 and
+# https://bugs.freebsd.org/bugzilla/show_bug.cgi?id=225032
+# Are submitted to request an official FreeBSD port for yamllint
+# but it takes a while to have them committed
+# Until then use this scary fix instead
 ---
 - hosts: ansible_host
   gather_facts: false
@@ -6,3 +11,18 @@
     copy:
       src: Files/ports
       dest: /usr/
+  - name: adapt /usr/ports/textproc/Makefile, though it may be naughty
+    blockinfile:
+      path: /usr/ports/textproc/Makefile
+      insertbefore: .include <bsd.port.subdir.mk>
+      block: |
+          SUBDIR += py-yamllint
+          SUBDIR += py-pathspec
+  - name: check if py-yamllint is index file,
+          the ansible portinstall module wants that
+    shell: portsdb textproc/py-yamllint > /tmp/py-yamllint_found
+  - name: if not in index file, rebuild the index file.
+          Rebuilding may take a while.
+    shell: grep textproc/py-yamllint /tmp/py-yamllint_found || portsdb -uU
+  - name: install textproc/py-yamllint
+    portinstall: name=textproc/py-yamllint state=present use_packages=false

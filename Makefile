@@ -4,6 +4,7 @@ DRYRUN=--check
 DRYRUN=
 OPTIONS=$(VERBOSE) $(DRYRUN)
 YAMLLINT=@if which yamllint > /dev/null; then yamllint $@.yaml; fi
+PLAYBOOK=ansible-playbook $(OPTIONS) $@.yaml
 
 all: deploy
 deploy:   ansible ports_source_install   ports_install   consul_deploy   consul_servers_configure   consul_clients_configure   consul_service_checks_configure
@@ -12,23 +13,23 @@ undeploy: ansible ports_source_deinstall ports_deinstall consul_undeploy consul_
 
 ansible:
 	$(YAMLLINT)
-	ansible-playbook $(OPTIONS) $@.yaml
+	$(PLAYBOOK)
 
 ports_source_install:
 	$(YAMLLINT)
-	ansible-playbook $(OPTIONS) $@.yaml
+	$(PLAYBOOK)
 
 ports_source_deinstall:
 	$(YAMLLINT)
-	ansible-playbook $(OPTIONS) $@.yaml
+	$(PLAYBOOK)
 
 ports_install:
 	$(YAMLLINT)
-	ansible-playbook $(OPTIONS) $@.yaml
+	$(PLAYBOOK)
 
 ports_deinstall:
 	$(YAMLLINT)
-	ansible-playbook $(OPTIONS) $@.yaml
+	$(PLAYBOOK)
 
 # check on valid json syntax (jq as a dependency)
 # The templates contain cfacter variables
@@ -44,37 +45,37 @@ check_json_service_checks:
 # install consul core.
 consul_deploy:
 	$(YAMLLINT)
-	ansible-playbook $(OPTIONS) $@.yaml
+	$(PLAYBOOK)
 
 consul_undeploy:
 	$(YAMLLINT)
-	ansible-playbook $(OPTIONS) $@.yaml
+	$(PLAYBOOK)
 
 # install consul clients.
 consul_clients_configure: check_json_client
 	$(YAMLLINT)
-	ansible-playbook $(OPTIONS) $@.yaml
+	$(PLAYBOOK)
 
 consul_clients_unconfigure: check_json_client
 	$(YAMLLINT)
-	ansible-playbook $(OPTIONS) $@.yaml
+	$(PLAYBOOK)
 
 # install consul server
 consul_servers_configure: check_json_server
 	$(YAMLLINT)
-	ansible-playbook $(OPTIONS) $@.yaml
+	$(PLAYBOOK)
 
 consul_servers_unconfigure: check_json_server
 	$(YAMLLINT)
-	ansible-playbook $(OPTIONS) $@.yaml
+	$(PLAYBOOK)
 
 consul_service_checks_configure: check_json_service_checks
 	$(YAMLLINT)
-	ansible-playbook $(OPTIONS) $@.yaml
+	$(PLAYBOOK)
 
 consul_service_checks_unconfigure: check_json_service_checks
 	$(YAMLLINT)
-	ansible-playbook $(OPTIONS) $@.yaml
+	$(PLAYBOOK)
 
 # ==============================================
 
@@ -86,4 +87,3 @@ members_via_api:
 
 clean:
 	rm *.retry
-
