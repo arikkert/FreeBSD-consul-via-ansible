@@ -7,9 +7,18 @@ YAMLLINT=@if which yamllint > /dev/null; then yamllint $@.yaml; fi
 PLAYBOOK=ansible-playbook $(OPTIONS) $@.yaml
 
 all: deploy
-deploy:   ansible ports_source_install   ports_install   consul_deploy   consul_servers_configure   consul_clients_configure   consul_service_checks_configure
+deploy: ansible \
+	ports_source_install   ports_install \
+	consul_deploy \
+	consul_servers_configure   consul_clients_configure \
+	consul_service_checks_configure \
+	members
 
-undeploy: ansible ports_source_deinstall ports_deinstall consul_undeploy consul_servers_unconfigure consul_clients_unconfigure consul_service_checks_unconfigure
+undeploy: ansible \
+	ports_source_deinstall ports_deinstall \
+	consul_undeploy \
+	consul_servers_unconfigure consul_clients_unconfigure \
+	consul_service_checks_unconfigure
 
 ansible:
 	$(YAMLLINT)
@@ -79,6 +88,7 @@ consul_service_checks_unconfigure: check_json_service_checks
 
 # ==============================================
 
+# show all members, should be alive. Use as test
 members:
 	consul $@
 

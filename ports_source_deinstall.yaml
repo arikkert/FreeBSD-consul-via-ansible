@@ -12,8 +12,8 @@
           SUBDIR += py-yamllint
           SUBDIR += py-pathspec
       state: absent
-  - name: check if py-yamllint is index file,
-          the ansible portinstall module wants that
+  - name: check if py-yamllint is in index file,
+          the ansible portinstall module requires that
     shell: portsdb textproc/py-yamllint > /tmp/py-yamllint_found
   - name: if not in index file, rebuild the index file.
           Rebuilding may take a while.
