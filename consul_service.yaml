@@ -1,0 +1,7 @@
+# The consul service
+---
+- hosts: freebsd
+  gather_facts: false
+  tasks:
+    - name: start and enable the service
+      service: name=consul state=started enabled=yes
