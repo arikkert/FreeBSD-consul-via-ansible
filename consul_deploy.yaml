@@ -9,5 +9,4 @@
       pkgng: name=sysutils/consul state=present cached=yes
     - name: create the config dir
       file: state=directory path=/usr/local/etc/consul.d
-    - name: start and enable the service
-      service: name=consul state=started enabled=yes
+- import_playbook: consul_service.yaml
