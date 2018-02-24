@@ -15,6 +15,6 @@
   - name: check if py-yamllint is in index file,
           the ansible portinstall module requires that
     shell: portsdb textproc/py-yamllint > /tmp/py-yamllint_found
-  - name: if not in index file, rebuild the index file.
+  - name: if in index file, rebuild the index file.
           Rebuilding may take a while.
-    shell: ! grep textproc/py-yamllint /tmp/py-yamllint_found || portsdb -uU
+    shell: if grep textproc/py-yamllint /tmp/py-yamllint_found; then portsdb -uU; fi
