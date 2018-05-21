@@ -1,6 +1,7 @@
 # consul server
 ---
 - hosts: freebsd_consul_servers
+  gather_facts: true  # Needed for substituting template vars
   tasks:
   - template:
       src: Files/CONSUL_server.json.tpl
