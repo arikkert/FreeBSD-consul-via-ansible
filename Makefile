@@ -8,6 +8,7 @@ PLAYBOOK=ansible-playbook $(OPTIONS) $@.yaml
 
 all: deploy
 deploy: ansible \
+	portlint \
 	ports_source_install   ports_install \
 	consul_deploy \
 	consul_servers_configure   consul_clients_configure \
@@ -23,6 +24,9 @@ undeploy: ansible \
 ansible:
 	$(YAMLLINT)
 	$(PLAYBOOK)
+
+portlint:
+	portlint Files/ports/textproc/*
 
 ports_source_install:
 	$(YAMLLINT)

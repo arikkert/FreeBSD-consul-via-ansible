@@ -14,8 +14,8 @@ COMMENT=	Linter for YAML files
 
 LICENSE=	GPLv3
 
-RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}pathspec>=0.5.3:textproc/py-pathspec \
-		${PYTHON_PKGNAMEPREFIX}yaml>0:devel/py-yaml
+RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}pathspec>=0.5.3:textproc/py-pathspec@${FLAVOR} \
+		${PYTHON_PKGNAMEPREFIX}yaml>0:devel/py-yaml@${FLAVOR}
 
 USES=		python
 USE_PYTHON=	distutils autoplist
