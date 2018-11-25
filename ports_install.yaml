@@ -3,5 +3,5 @@
 - hosts: ansible_host
   gather_facts: false
   tasks:
-    - name: install textproc/py-yamllint
-      portinstall: name=textproc/py-yamllint state=present use_packages=false
+    - name: install devel/py-yamllint
+      portinstall: name=devel/py-yamllint state=present use_packages=false

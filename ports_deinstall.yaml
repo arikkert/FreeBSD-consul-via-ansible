@@ -3,7 +3,7 @@
 - hosts: ansible_host
   gather_facts: false
   tasks:
-    - name: deinstall textproc/py-yamllint
-      pkgng: name=textproc/py-yamllint state=absent cached=yes
+    - name: deinstall devel/py-yamllint
+      pkgng: name=devel/py-yamllint state=absent cached=yes
     - name: deinstall python/py-pathspec
-      pkgng: name=textproc/py-pathspec state=absent cached=yes
+      pkgng: name=devel/py-pathspec state=absent cached=yes

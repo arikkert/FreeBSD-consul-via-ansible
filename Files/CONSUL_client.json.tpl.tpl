@@ -4,6 +4,6 @@
 	"enable_script_checks" : true,
 	"log_level" : "DEBUG",
 	"enable_script_checks" : true,
-	"bind_addr" : "{{ facter_networking.ip }}",
-	"start_join" : ["consul.{{ facter_networking.domain }}"]
+	"bind_addr" : "{{ ansible_all_ipv4_addresses | ipaddr('NETWORK/NETMASK') | first }}",
+	"start_join" : ["consul.{{ ansible_domain }}"]
 }
