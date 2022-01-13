@@ -2,7 +2,7 @@ VERBOSE=-vvv
 VERBOSE=
 DRYRUN=--check
 DRYRUN=
-OPTIONS=$(VERBOSE) $(DRYRUN)
+OPTIONS=$(VERBOSE) $(DRYRUN) --diff
 YAMLLINT=@if which yamllint > /dev/null; then yamllint $@.yaml; fi
 PLAYBOOK=ansible-playbook $(OPTIONS) $@.yaml
 
@@ -25,9 +25,6 @@ undeploy: ansible \
 ansible:
 	$(YAMLLINT)
 	$(PLAYBOOK)
-
-portlint:
-	portlint Files/ports/textproc/*
 
 ports_install:
 	$(YAMLLINT)

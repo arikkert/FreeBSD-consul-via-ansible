@@ -4,4 +4,7 @@
   gather_facts: false
   tasks:
     - name: start and enable the service
-      service: name=consul state=started enabled=yes
+      service:
+        name: consul
+        state: started
+        enabled: yes

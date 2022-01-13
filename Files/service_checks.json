@@ -1,7 +1,7 @@
 {
 	"service" :
 	{
-		"name" : "some checks",
+		"name" : "some_checks",
 		"checks" :
 		[
 			{

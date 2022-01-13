@@ -4,4 +4,7 @@
   gather_facts: false
   tasks:
     - name: install textproc/jq
-      pkgng: name=textproc/jq state=present cached=yes
+      pkgng:
+        name: textproc/jq
+        state: present
+        cached: true

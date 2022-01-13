@@ -4,4 +4,8 @@
   gather_facts: false
   tasks:
     - name: install devel/py-yamllint
-      portinstall: name=devel/py-yamllint state=present use_packages=false
+      portinstall:
+        name: devel/py-yamllint
+        state: present
+        use_packages: false
+      check_mode: false

@@ -10,4 +10,6 @@
 
   handlers:
     - name: restart consul
-      service: name=consul state=restarted
+      service:
+        name: consul
+        state: restarted
