@@ -4,6 +4,7 @@ DRYRUN=--check
 DRYRUN=
 OPTIONS=$(VERBOSE) $(DRYRUN) --diff
 YAMLLINT=@if which yamllint > /dev/null; then yamllint $@.yaml; fi
+ANSIBLELINT=@if which ansible-lint > /dev/null; then ansible-lint -q $@.yaml; fi
 PLAYBOOK=ansible-playbook $(OPTIONS) $@.yaml
 
 # All the targets are phony
@@ -24,14 +25,17 @@ undeploy: ansible \
 
 ansible:
 	$(YAMLLINT)
+	$(ANSIBLELINT)
 	$(PLAYBOOK)
 
 ports_install:
 	$(YAMLLINT)
+	$(ANSIBLELINT)
 	$(PLAYBOOK)
 
 ports_deinstall:
 	$(YAMLLINT)
+	$(ANSIBLELINT)
 	$(PLAYBOOK)
 
 # Force the clients to listen on the same network as the ansible host
@@ -54,37 +58,45 @@ check_json_service_checks:
 # install consul core.
 consul_deploy:
 	$(YAMLLINT)
+	$(ANSIBLELINT)
 	$(PLAYBOOK)
 
 consul_undeploy:
 	$(YAMLLINT)
+	$(ANSIBLELINT)
 	$(PLAYBOOK)
 
 # install consul clients.
 consul_clients_configure: check_json_client
 	$(YAMLLINT)
+	$(ANSIBLELINT)
 	$(PLAYBOOK)
 	rm Files/CONSUL_client.json.tpl
 
 consul_clients_unconfigure: check_json_client
 	$(YAMLLINT)
+	$(ANSIBLELINT)
 	$(PLAYBOOK)
 
 # install consul server
 consul_servers_configure: check_json_server
 	$(YAMLLINT)
+	$(ANSIBLELINT)
 	$(PLAYBOOK)
 
 consul_servers_unconfigure: check_json_server
 	$(YAMLLINT)
+	$(ANSIBLELINT)
 	$(PLAYBOOK)
 
 consul_service_checks_configure: check_json_service_checks
 	$(YAMLLINT)
+	$(ANSIBLELINT)
 	$(PLAYBOOK)
 
 consul_service_checks_unconfigure: check_json_service_checks
 	$(YAMLLINT)
+	$(ANSIBLELINT)
 	$(PLAYBOOK)
 
 # ==============================================

@@ -2,12 +2,18 @@
 ---
 - hosts: freebsd
   tasks:
-  - template:
-      src: Files/service_checks.json
-      dest: /usr/local/etc/consul.d/service_checks.json
-    notify:
-      - restart consul
+    - name: configure service checks
+      ansible.builtin.template:
+        src: Files/{{ item }}
+        dest: /usr/local/etc/consul.d/{{ item }}
+        mode: 0644
+      loop:
+        - service_checks.json
+      notify: restart consul
 
   handlers:
     - name: restart consul
-      service: name=consul state=restarted
+      ansible.builtin.service:
+        name: consul
+        state: restarted
+...

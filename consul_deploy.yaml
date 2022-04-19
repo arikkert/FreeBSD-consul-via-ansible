@@ -4,17 +4,19 @@
   gather_facts: false
   tasks:
     - name: install sysutils/facter  # cfacter (variables used in templates)
-      pkgng:
+      community.general.pkgng:
         name: sysutils/rubygem-facter
         state: present
         cached: true
     - name: install consul
-      pkgng:
+      community.general.pkgng:
         name: sysutils/consul
         state: present
         cached: true
     - name: create the config dir
-      file:
+      ansible.builtin.file:
         state: directory
         path: /usr/local/etc/consul.d
+        mode: 0755
 - import_playbook: consul_service.yaml
+...

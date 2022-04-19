@@ -4,6 +4,13 @@
   gather_facts: false
   tasks:
     - name: deinstall devel/py-yamllint
-      pkgng: name=devel/py-yamllint state=absent cached=yes
+      community.general.pkgng:
+        name: devel/py-yamllint
+        state: absent
+        cached: true
     - name: deinstall python/py-pathspec
-      pkgng: name=devel/py-pathspec state=absent cached=yes
+      community.general.pkgng:
+        name: devel/py-pathspec
+        state: absent
+        cached: true
+...

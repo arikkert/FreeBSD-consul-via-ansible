@@ -4,10 +4,21 @@
   gather_facts: false
   tasks:
     - name: stop and disable the service
-      service: name=consul state=stopped enabled=no
+      service:
+        name: consul
+        state: stopped
+        enabled: no
     - name: deinstall consul
-      pkgng: name=sysutils/consul state=absent cached=yes
+      community.general.pkgng:
+        name: sysutils/consul
+        state: absent
+        cached: yes
     - name: remove the config dir
-      file: path=/usr/local/etc/consul.d state=absent
+      ansible.builtin.file:
+        path: /usr/local/etc/consul.d
+        state: absent
     - name: remove the data dir
-      file: path=/var/db/consul state=absent
+      ansible.builtin.file:
+        path: /var/db/consul
+        state: absent
+...
