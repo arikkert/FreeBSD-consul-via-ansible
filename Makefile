@@ -38,8 +38,11 @@ ports_deinstall:
 	$(ANSIBLELINT)
 	$(PLAYBOOK)
 
+install_utils:
+	ansible-galaxy collection install ansible.utils
+
 # Force the clients to listen on the same network as the ansible host
-create_client_template:
+create_client_template: install_utils
 	@NETWORK=$$(facter networking.network); \
 	NETMASK=$$(facter networking.netmask); \
 	cat Files/CONSUL_client.json.tpl.tpl | sed s/NETWORK/$${NETWORK}/g | sed s/NETMASK/$${NETMASK}/g > Files/CONSUL_client.json.tpl
