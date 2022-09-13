@@ -1,9 +1,10 @@
 # The consul service
 ---
-- hosts: freebsd
+- name: Ensure consul service is running
+  hosts: freebsd
   gather_facts: false
   tasks:
-    - name: start and enable the service
+    - name: Start and enable the service
       ansible.builtin.service:
         name: consul
         state: started

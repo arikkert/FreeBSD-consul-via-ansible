@@ -1,16 +1,17 @@
 # consul client
 ---
-- hosts: freebsd_consul_clients
+- name: Ensure consul client is unconfigured
+  hosts: freebsd_consul_clients
   tasks:
     - name: unconfigure consul client
       ansible.builtin.file:
         path: /usr/local/etc/consul.d/CONSUL_client.json
         state: absent
       notify:
-        - restart consul
+        - Handler restart consul
 
   handlers:
-    - name: restart consul
+    - name: Handler restart consul
       ansible.builtin.service:
         name: consul
         state: restarted

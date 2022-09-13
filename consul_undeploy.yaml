@@ -1,23 +1,24 @@
 # The consul package
 ---
-- hosts: freebsd
+- name: Ensure consul is undeployed
+  hosts: freebsd
   gather_facts: false
   tasks:
-    - name: stop and disable the service
+    - name: Stop and disable the service
       service:
         name: consul
         state: stopped
         enabled: no
-    - name: deinstall consul
+    - name: Deinstall consul
       community.general.pkgng:
         name: sysutils/consul
         state: absent
         cached: yes
-    - name: remove the config dir
+    - name: Remove the config dir
       ansible.builtin.file:
         path: /usr/local/etc/consul.d
         state: absent
-    - name: remove the data dir
+    - name: Remove the data dir
       ansible.builtin.file:
         path: /var/db/consul
         state: absent

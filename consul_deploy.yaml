@@ -1,22 +1,24 @@
 # The consul package
 ---
-- hosts: freebsd
+- name: Ensure consul is deployed
+  hosts: freebsd
   gather_facts: false
   tasks:
-    - name: install sysutils/facter  # cfacter (variables used in templates)
+    - name: Install sysutils/facter  # cfacter (variables used in templates)
       community.general.pkgng:
         name: sysutils/rubygem-facter
         state: present
         cached: true
-    - name: install consul
+    - name: Install consul
       community.general.pkgng:
         name: sysutils/consul
         state: present
         cached: true
-    - name: create the config dir
+    - name: Create the config dir
       ansible.builtin.file:
         state: directory
         path: /usr/local/etc/consul.d
         mode: 0755
-- import_playbook: consul_service.yaml
+- name: Import consul_service.yaml
+  import_playbook: consul_service.yaml
 ...

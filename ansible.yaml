@@ -1,9 +1,10 @@
 # dependency for the host ansible is running on
 ---
-- hosts: ansible_host
+- name: Dependency for the host ansible is running on
+  hosts: ansible_host
   gather_facts: false
   tasks:
-    - name: install textproc/jq
+    - name: Ensure textproc/jq is installed
       pkgng:
         name: textproc/jq
         state: present

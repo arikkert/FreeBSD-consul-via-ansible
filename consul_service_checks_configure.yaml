@@ -1,18 +1,19 @@
 # consul service checks
 ---
-- hosts: freebsd
+- name: Ensure consul service checks are deployed
+  hosts: freebsd
   tasks:
-    - name: configure service checks
+    - name: Ensure service checks are configured
       ansible.builtin.template:
         src: Files/{{ item }}
         dest: /usr/local/etc/consul.d/{{ item }}
         mode: 0644
       loop:
         - service_checks.json
-      notify: restart consul
+      notify: Handler restart consul
 
   handlers:
-    - name: restart consul
+    - name: Handler restart consul
       ansible.builtin.service:
         name: consul
         state: restarted

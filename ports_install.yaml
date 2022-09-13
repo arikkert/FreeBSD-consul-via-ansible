@@ -1,9 +1,10 @@
 # The py-yamllint package
 ---
-- hosts: ansible_host
+- name: Ensure py-yamllint is installed
+  hosts: ansible_host
   gather_facts: false
   tasks:
-    - name: install devel/py-yamllint
+    - name: Install devel/py-yamllint
       portinstall:
         name: devel/py-yamllint
         state: present

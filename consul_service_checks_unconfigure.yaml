@@ -1,16 +1,17 @@
 # consul service checks
 ---
-- hosts: freebsd
+- name: Ensure consul service checks are unconfigured
+  hosts: freebsd
   tasks:
-    - name: unconfigure service
+    - name: Unconfigure service
       ansible.builtin.file:
         path: /usr/local/etc/consul.d/service_checks.json
         state: absent
       notify:
-        - restart consul
+        - Handler restart consul
 
   handlers:
-    - name: restart consul
+    - name: Handler restart consul
       ansible.builtin.service:
         name: consul
         state: restarted

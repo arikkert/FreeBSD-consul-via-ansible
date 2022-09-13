@@ -1,14 +1,15 @@
 # The py-yamllint package + deps
 ---
-- hosts: ansible_host
+- name: Ensure py-yamllint package is deinstalled
+  hosts: ansible_host
   gather_facts: false
   tasks:
-    - name: deinstall devel/py-yamllint
+    - name: Deinstall devel/py-yamllint
       community.general.pkgng:
         name: devel/py-yamllint
         state: absent
         cached: true
-    - name: deinstall python/py-pathspec
+    - name: Deinstall python/py-pathspec
       community.general.pkgng:
         name: devel/py-pathspec
         state: absent
