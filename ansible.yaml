@@ -5,7 +5,7 @@
   gather_facts: false
   tasks:
     - name: Ensure textproc/jq is installed
-      pkgng:
+      community.general.packaging.os.pkgng:
         name: textproc/jq
         state: present
         cached: true

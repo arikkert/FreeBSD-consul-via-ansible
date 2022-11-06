@@ -5,7 +5,7 @@
   gather_facts: false
   tasks:
     - name: Install devel/py-yamllint
-      portinstall:
+      community.general.packaging.os.portinstall:
         name: devel/py-yamllint
         state: present
         use_packages: false
