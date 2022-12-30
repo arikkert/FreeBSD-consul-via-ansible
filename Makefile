@@ -13,14 +13,14 @@ all: deploy
 deploy: ansible \
 	ports_install \
 	consul_deploy \
-	consul_servers_configure   consul_clients_configure \
+	consul_servers_configure   consul_clients_configure consul_monitor_configure \
 	consul_service_checks_configure \
 	members
 
 undeploy: ansible \
 	ports_deinstall \
 	consul_undeploy \
-	consul_servers_unconfigure consul_clients_unconfigure \
+	consul_servers_unconfigure consul_clients_unconfigure consul_monitor_unconfigure \
 	consul_service_checks_unconfigure
 
 ansible:
@@ -98,6 +98,16 @@ consul_service_checks_configure: check_json_service_checks
 	$(PLAYBOOK)
 
 consul_service_checks_unconfigure: check_json_service_checks
+	$(YAMLLINT)
+	$(ANSIBLELINT)
+	$(PLAYBOOK)
+
+consul_monitor_configure:
+	$(YAMLLINT)
+	$(ANSIBLELINT)
+	$(PLAYBOOK)
+
+consul_monitor_unconfigure:
 	$(YAMLLINT)
 	$(ANSIBLELINT)
 	$(PLAYBOOK)

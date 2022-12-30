@@ -1,0 +1,18 @@
+# consul server
+---
+- name: Ensure consul servers are unconfigured
+  hosts: freebsd_consul_monitor
+  tasks:
+    - name: Unconfigure consul monitor
+      ansible.builtin.file:
+        path: /usr/local/etc/consul.d/CONSUL_monitor.json
+        state: absent
+      notify:
+        - Handler restart consul
+
+  handlers:
+    - name: Handler restart consul
+      ansible.builtin.service:
+        name: consul
+        state: restarted
+...

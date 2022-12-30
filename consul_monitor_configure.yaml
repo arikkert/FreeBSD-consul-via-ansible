@@ -1,0 +1,21 @@
+# consul server
+---
+- name: Ensure consul servers are configured
+  hosts: freebsd_consul_monitor
+  gather_facts: true  # Needed for substituting template vars
+  tasks:
+    - name: Configure consul server
+      ansible.builtin.template:
+        src: Files/{{ item }}
+        dest: /usr/local/etc/consul.d/{{ item }}
+        mode: 0644
+      loop:
+        - CONSUL_monitor.json
+      notify: Handler restart consul
+
+  handlers:
+    - name: Handler restart consul
+      ansible.builtin.service:
+        name: consul
+        state: restarted
+...
