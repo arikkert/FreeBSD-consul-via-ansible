@@ -18,7 +18,7 @@
       ansible.builtin.file:
         state: directory
         path: /usr/local/etc/consul.d
-        mode: 0755
+        mode: '0755'
 - name: Import consul_service.yaml
   import_playbook: consul_service.yaml
 ...
